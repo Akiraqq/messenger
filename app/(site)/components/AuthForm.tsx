@@ -94,6 +94,7 @@ const AuthForm = () => {
   return (
     <div
       className="
+            mx-3
             mt-8
             sm:mx-auto
             sm:w-full
@@ -103,6 +104,7 @@ const AuthForm = () => {
       <div
         className="
                 bg-white
+                rounded-lg
                 px-4
                 py-8
                 swadow 
