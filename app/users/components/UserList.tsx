@@ -1,16 +1,28 @@
 'use client'
 
 import { User } from '@prisma/client'
+import { useState } from 'react'
+
 import UserBox from './UserBox'
+import Avatar from '@/app/components/Avatar'
+import SettingsModal from '@/app/components/sidebar/SettingsModal'
 
 interface UserListProps {
   items: User[]
+  currentUser: User
 }
 
-const UserList: React.FC<UserListProps> = ({ items }) => {
+const UserList: React.FC<UserListProps> = ({ items, currentUser }) => {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <aside
-      className="
+    <>
+      <SettingsModal
+        currentUser={currentUser}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+      <aside
+        className="
             fixed
             inset-y-0
             pb-20
@@ -25,16 +37,28 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
             w-full
             left-0
             "
-    >
-      <div className="px-5">
-        <div className="flex-col">
-          <div className="text-2xl font-bold text-neutral-800 py-4">People</div>
+      >
+        <div className="px-5">
+          <div className="flex justify-between mb-4 pt-4">
+            <div className="text-2xl font-bold text-neutral-800">People</div>
+            <div
+              onClick={() => setIsOpen(true)}
+              className="
+              sm:hidden
+              cursor-pointer
+              hover:opacity-75
+              transition
+              "
+            >
+              <Avatar user={currentUser} />
+            </div>
+          </div>
+          {items.map((item) => (
+            <UserBox key={item.id} data={item} />
+          ))}
         </div>
-        {items.map((item) => (
-          <UserBox key={item.id} data={item} />
-        ))}
-      </div>
-    </aside>
+      </aside>
+    </>
   )
 }
 

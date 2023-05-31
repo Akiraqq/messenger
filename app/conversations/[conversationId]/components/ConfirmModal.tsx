@@ -84,6 +84,8 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
       </div>
       <div
         className="
+      flex
+      flex-row-reverse
       mt-5
       sm:mt-4
       sm:flex
